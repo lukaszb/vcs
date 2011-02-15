@@ -100,6 +100,20 @@ class Node(object):
         if self.is_root() and not self.is_dir():
             raise NodeError, "Root node cannot be FILE kind"
 
+    def __getstate__(self):
+        self.mimetype
+        self.message
+        if self.is_file():
+            self.content
+            self.lexer
+            self.size
+        else:
+            pass
+        obj_dict = self.__dict__.copy()
+        obj_dict['changeset'] = None
+        obj_dict['parent'] = None
+        return obj_dict
+
     @LazyProperty
     def parent(self):
         parent_path = self.get_parent_path()

@@ -308,6 +308,8 @@ class MercurialRepository(BaseRepository):
         """
         count = self.count()
         offset = offset or 0
+        if not isinstance(offset, int):
+            offset = self.get_changeset(offset).revision
         limit = limit or None
         i = 0
         while True:
